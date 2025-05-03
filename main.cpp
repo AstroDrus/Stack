@@ -186,7 +186,7 @@ int main()
         std::cout << "last element after pop is - " << stackI.top() << '\n';                                                    
         stackI.pop();                                                   
         std::cout << "last element after pop is - " << stackI.top() << '\n'; 
-
+ 
         //double
         Stack <double> stackD;
         std::cout << "let's check doubles" << std::endl;
