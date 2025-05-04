@@ -9,10 +9,10 @@ class Stack
 {
 public:
     Stack();
-    Stack(const Stack& other);
-    Stack(Stack&& other);
-    Stack& operator=(Stack& other);
-    Stack& operator=(Stack&& other);
+    Stack(const Stack< T >& other);
+    Stack(Stack< T >&& other);
+    Stack& operator=(Stack< T >& other);
+    Stack& operator=(Stack< T >&& other);
 
     ~Stack();
 
