@@ -64,22 +64,27 @@ Stack< T >::Stack(Stack< T >&& other)
 
 
 template < typename T >
-Stack< T >& Stack< T >::operator=(Stack& other)
+Stack< T >& Stack< T >::operator=(Stack< T >& other)
 {   
-    if(this != &other)
+    if(*this != other)
     {
-    size_ = new int [other.size_];
-    capacity_ = new int [other.capacity_];
+    size_ = other.size_;
+    capacity_ = other.capacity_;
     data_ = new T [other.data_];
+    for (int i = 0; i < size_; ++i)
+    {
+        data_[i] = other.data_[i];
+    }
+
     }
     return *this;
 }
 
 
 template < typename T >
-Stack< T >& Stack< T >::operator=(Stack&& other)
+Stack< T >& Stack< T >::operator=(Stack< T >&& other)
 {
-    if(this != &other)
+    if(*this != other)
     {
     delete[] data_;
 
@@ -149,7 +154,7 @@ void Stack< T >::pop()
 template < typename T >
 const T& Stack< T >::top()
 {
-    if ((size_ - 1) < 0)
+    if (size_ == 0)
     {
         throw std::underflow_error("is empty ");
     }
@@ -186,6 +191,19 @@ int main()
         std::cout << "last element after pop is - " << stackI.top() << '\n';                                                    
         stackI.pop();                                                   
         std::cout << "last element after pop is - " << stackI.top() << '\n'; 
+
+        std::cout << "Test of rule of 5" << '\n';
+        Stack <int> stack1 = stackI;
+        std::cout << "last element after AO is - " << stack1.top() << '\n';
+        Stack <int> stack2 {stack1};
+        std::cout << "last element after CC is - " << stack2.top() << '\n';
+        Stack <int> stack3 = std::move(stack2);
+        std::cout << "last element after move AO is - " << stack3.top() << '\n';
+        Stack <int> stack4 {std::move(stack3)};
+        std::cout << "last element after move CC is - " << stack4.top() << '\n';
+
+
+        
  
         //double
         Stack <double> stackD;
